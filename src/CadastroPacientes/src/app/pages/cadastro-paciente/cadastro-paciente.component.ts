@@ -1,4 +1,3 @@
-import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -7,28 +6,26 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { map } from 'rxjs';
 import { BaseButtonComponent } from '../../components/base-button/base-button.component';
 import { BaseDatepickerComponent } from '../../components/base-datepicker/base-datepicker.component';
 import { BaseInputComponent } from '../../components/base-input/base-input.component';
 import { BaseRadioComponent } from '../../components/base-radio/base-radio.component';
-import { ConvenioService } from '../../services/convenio.service';
-import { map, Observable } from 'rxjs';
 import { BaseSelectComponent } from '../../components/base-select/base-select.component';
+import { MonthYearDatepickerComponent } from '../../components/month-year-datepicker/month-year-datepicker.component';
 import { Keyvalue } from '../../models/keyvalue';
+import { ConvenioService } from '../../services/convenio.service';
 
 @Component({
   selector: 'app-cadastro-paciente',
   imports: [
-    JsonPipe,
-    AsyncPipe,
-    NgIf,
-
     ReactiveFormsModule,
     BaseInputComponent,
     BaseButtonComponent,
     BaseDatepickerComponent,
     BaseRadioComponent,
-    BaseSelectComponent
+    BaseSelectComponent,
+    MonthYearDatepickerComponent,
   ],
   templateUrl: './cadastro-paciente.component.html',
   styleUrl: './cadastro-paciente.component.scss',
@@ -93,6 +90,7 @@ export class CadastroPacienteComponent implements OnInit {
 
   onSubmit() {
     const values = this.cadastroForm.getRawValue();
+    values.validadeCarteirinha = values.validadeCarteirinha?.toDate()
     console.log(values);
   }
 }

@@ -1,0 +1,20 @@
+<mat-form-field>
+  <mat-label>{{ label() }}</mat-label>
+  <input
+    matInput
+    [matDatepicker]="dp"
+    [(ngModel)]="inputValue"
+    (focus)="onTouched && onTouched()"
+    (input)="onChange && onChange(inputValue)"
+    [disabled]="isDisabled"
+  />
+  <mat-hint>{{ hint() }}</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+  <mat-datepicker
+    #dp
+    startView="multi-year"
+    (monthSelected)="setMonthAndYear($event, dp)"
+    panelClass="example-month-picker"
+  >
+  </mat-datepicker>
+</mat-form-field>
