@@ -1,5 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { BaseButtonComponent } from '../components/base-button/base-button.component';
 import { BaseDatepickerComponent } from '../components/base-datepicker/base-datepicker.component';
 import { BaseInputComponent } from '../components/base-input/base-input.component';
@@ -18,32 +24,43 @@ import { BaseRadioComponent } from '../components/base-radio/base-radio.componen
   styleUrl: './cadastro-paciente.component.scss',
 })
 export class CadastroPacienteComponent implements OnInit {
-
-  fb = inject(FormBuilder)
+  fb = inject(FormBuilder);
   cadastroForm!: FormGroup;
 
   generos = [
     {
       key: 1,
-      value: 'Masculino'
+      value: 'Masculino',
     },
     {
       key: 2,
-      value: 'Feminino'
+      value: 'Feminino',
     },
     {
       key: 3,
-      value: 'Outro'
+      value: 'Outro',
     },
-  ]
+  ];
 
   ngOnInit(): void {
     this.cadastroForm = this.fb.group({
-      nome: new FormControl<string>(''),
-      sobrenome: new FormControl<string>(''),
-      dataNascimento: new FormControl<Date | null>(new Date()),
-      genero: new FormControl<number | null>(1),
-    })
+      nome: ['', Validators.required],
+      sobrenome: ['', Validators.required],
+      dataNascimento: new FormControl<Date | null>(
+        new Date(),
+        Validators.required
+      ),
+      genero: new FormControl<number | null>(1, Validators.required),
+      cpf: [''],
+      rg: [''],
+      ufRg: [''],
+      email: ['', Validators.email],
+      celular: [''],
+      telefone: [''],
+      convenio: [''],
+      numeroCarterinhaConvenio: [''],
+      validadeCarteirinha: [''],
+    });
   }
 
   onSubmit() {

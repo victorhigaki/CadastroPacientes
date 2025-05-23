@@ -11,12 +11,27 @@
       label="Data Nascimento"
       formControlName="dataNascimento"
     ></app-base-datepicker>
-    <div class="row">
+    <div class="">
       <app-base-radio
         label="Gênero"
         formControlName="genero"
         [items]="generos"
       ></app-base-radio>
+    </div>
+    <div>
+      <app-base-input label="CPF" formControlName="cpf"></app-base-input>
+    </div>
+    <div>
+      <app-base-input label="RG" formControlName="rg"></app-base-input>
+    </div>
+    <div>
+      <app-base-input label="UF do RG" formControlName="ufRg"></app-base-input>
+    </div>
+    <div>
+      <app-base-input label="Email" formControlName="email"></app-base-input>
+    </div>
+    <div>
+      <app-base-input label="Telefone Fixo" formControlName="telefone"></app-base-input>
     </div>
   </div>
   <app-base-button type="submit">Cadastrar</app-base-button>
