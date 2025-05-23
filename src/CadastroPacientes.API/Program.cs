@@ -1,3 +1,4 @@
+using CadastroPacientes.API.Configurations;
 using CadastroPacientes.CrossCutting;
 using CadastroPacientes.Data.Context;
 using Microsoft.EntityFrameworkCore;
@@ -30,5 +31,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+await app.EnsureSeedData();
 
 app.Run();
