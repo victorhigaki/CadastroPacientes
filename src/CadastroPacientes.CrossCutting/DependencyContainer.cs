@@ -12,8 +12,13 @@ public static class DependencyContainer
     public static IServiceCollection RegisterServices(this IServiceCollection services)
     {
         services.AddTransient<AppDbContext>();
+
+        services.AddScoped<IConvenioService, ConvenioService>();
+        services.AddScoped<IConvenioRepository, ConvenioRepository>();
+
         services.AddScoped<IPacienteService, PacienteService>();
         services.AddScoped<IPacienteRepository, PacienteRepository>();
+        
         return services;
     }
 }

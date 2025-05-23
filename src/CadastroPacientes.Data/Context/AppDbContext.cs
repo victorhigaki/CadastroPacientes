@@ -10,6 +10,7 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<Paciente> Pacientes { get; set; }
+    public DbSet<Convenio> Convenios { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

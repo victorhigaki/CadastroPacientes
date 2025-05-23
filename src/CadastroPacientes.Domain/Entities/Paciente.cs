@@ -16,9 +16,10 @@ public class Paciente
     public string Celular { get; set; } = "";
     public string TelefoneFixo { get; set; } = "";
 
-    public Guid Convenio { get; set; }
+    public Guid ConvenioId { get; set; }
+    public Convenio Convenio { get; set; } = new Convenio();
     public int NumeroCarteirinhaConvenio { get; set; }
     public DateTime ValidadeCarteirinha { get; set; }
 
-    public bool Excluido { get; set; } = false;
+    public Status Status { get; set; }
 }
