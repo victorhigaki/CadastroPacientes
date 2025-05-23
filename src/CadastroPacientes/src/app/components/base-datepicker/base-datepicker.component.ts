@@ -1,21 +1,22 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NgControl } from '@angular/forms';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
-  selector: 'app-base-input',
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIconModule],
+  selector: 'app-base-datepicker',
+  providers: [provideNativeDateAdapter()],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './base-input.component.html',
-  styleUrl: './base-input.component.scss'
+  templateUrl: './base-datepicker.component.html',
+  styleUrl: './base-datepicker.component.scss'
 })
-export class BaseInputComponent implements ControlValueAccessor {
+export class BaseDatepickerComponent implements ControlValueAccessor {
+  maxDate = input(new Date());
   label = input('');
-  placeholder = input('');
   hint = input('');
-  icon = input('');
 
   inputValue = '';
   private ngControl = inject(NgControl, { optional: true })
@@ -42,4 +43,5 @@ export class BaseInputComponent implements ControlValueAccessor {
   setDisabledState?(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
   }
+
 }
