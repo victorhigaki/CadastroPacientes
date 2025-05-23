@@ -1,3 +1,4 @@
+import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -6,25 +7,36 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { BaseButtonComponent } from '../components/base-button/base-button.component';
-import { BaseDatepickerComponent } from '../components/base-datepicker/base-datepicker.component';
-import { BaseInputComponent } from '../components/base-input/base-input.component';
-import { BaseRadioComponent } from '../components/base-radio/base-radio.component';
+import { BaseButtonComponent } from '../../components/base-button/base-button.component';
+import { BaseDatepickerComponent } from '../../components/base-datepicker/base-datepicker.component';
+import { BaseInputComponent } from '../../components/base-input/base-input.component';
+import { BaseRadioComponent } from '../../components/base-radio/base-radio.component';
+import { ConvenioService } from '../../services/convenio.service';
+import { map, Observable } from 'rxjs';
+import { BaseSelectComponent } from '../../components/base-select/base-select.component';
+import { Keyvalue } from '../../models/keyvalue';
 
 @Component({
   selector: 'app-cadastro-paciente',
   imports: [
+    JsonPipe,
+    AsyncPipe,
+    NgIf,
+
     ReactiveFormsModule,
     BaseInputComponent,
     BaseButtonComponent,
     BaseDatepickerComponent,
     BaseRadioComponent,
+    BaseSelectComponent
   ],
   templateUrl: './cadastro-paciente.component.html',
   styleUrl: './cadastro-paciente.component.scss',
+  providers: [ConvenioService],
 })
 export class CadastroPacienteComponent implements OnInit {
   fb = inject(FormBuilder);
+  convenioService = inject(ConvenioService);
   cadastroForm!: FormGroup;
 
   generos = [
@@ -41,6 +53,7 @@ export class CadastroPacienteComponent implements OnInit {
       value: 'Outro',
     },
   ];
+  convenios: Keyvalue[] = [];
 
   ngOnInit(): void {
     this.cadastroForm = this.fb.group({
@@ -57,9 +70,24 @@ export class CadastroPacienteComponent implements OnInit {
       email: ['', Validators.email],
       celular: [''],
       telefone: [''],
-      convenio: [''],
+      convenioId: [''],
       numeroCarterinhaConvenio: [''],
       validadeCarteirinha: [''],
+    });
+
+    this.convenioService.getAll().pipe(
+      map((res) => {
+        return res.map((convenio) => {
+          return {
+            key: convenio.id,
+            value: convenio.nome,
+          } as Keyvalue;
+        });
+      })
+    ).subscribe({
+      next: (res) => {
+        this.convenios = res;
+      },
     });
   }
 
