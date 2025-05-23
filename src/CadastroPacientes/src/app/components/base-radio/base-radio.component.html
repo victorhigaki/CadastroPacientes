@@ -1,0 +1,13 @@
+<div>
+  <label>{{ label() }}</label>
+
+  <mat-radio-group
+    [ngModel]="inputValue"
+    (ngModelChange)="valueChanged($event)"
+    [disabled]="isDisabled"
+  >
+    @for(item of items(); track item) {
+    <mat-radio-button [value]="item.key">{{ item.value }}</mat-radio-button>
+    }
+  </mat-radio-group>
+</div>
