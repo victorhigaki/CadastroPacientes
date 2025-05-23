@@ -1,0 +1,9 @@
+<form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()" class="container">
+    <h3>Cadastro</h3>
+
+    <div class="" style="align-items: center;">
+        <app-base-input label="Nome" formControlName="nome"></app-base-input>
+        <app-base-input label="Sobrenome" formControlName="sobrenome"></app-base-input>
+    </div>
+    <app-base-button type="submit">Cadastrar</app-base-button>
+</form>
