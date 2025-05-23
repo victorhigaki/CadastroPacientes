@@ -1,0 +1,21 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+
+@url=https://localhost:5001/api/pacientes
+
+GET {{url}}
+
+###
+
+GET https://localhost:5001/api/pacientes/1
+
+
+### 
+
+POST https://localhost:5001/api/pacientes
+Content-Type: application/json
+
+{
+    "date": "2023-05-10",
+    "temperatureC": 30,
+    "summary": "Warm"
+}
