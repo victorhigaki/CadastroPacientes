@@ -3,8 +3,9 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { ColumnMode, NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { tap } from 'rxjs';
 import { BaseButtonComponent } from '../../components/base-button/base-button.component';
-import { Paciente } from '../../models/paciente';
+import { NotificationService } from '../../services/notification.service';
 import { PacientesService } from '../../services/pacientes.service';
 
 @Component({
@@ -22,10 +23,19 @@ import { PacientesService } from '../../services/pacientes.service';
   providers: [PacientesService],
 })
 export class ListaPacienteComponent {
-  pacientesService = inject(PacientesService);
+  private pacientesService = inject(PacientesService);
+  private notificationService = inject(NotificationService);
 
-  getPacientes$ = this.pacientesService.getAll();
-  pacientes: Paciente[] = [];
+  public getPacientes$ = this.pacientesService.getAll().pipe(
+    tap({
+      next: () =>
+        this.notificationService.success('Pacientes carregado com sucesso!'),
+      error: () =>
+        this.notificationService.error(
+          'Ocorreu um erro ao carregar Pacientes!'
+        ),
+    })
+  );
 
   // rows = [
   //   { name: 'Austin', gender: 'Male', company: 'Swimlane' },
@@ -35,4 +45,16 @@ export class ListaPacienteComponent {
 
   ColumnMode = ColumnMode;
 
+  onClickDelete(id: string) {
+    this.pacientesService.delete(id).subscribe({
+      next: () => {
+        this.notificationService.success('Paciente Excluído com sucesso!');
+        // todo colocar exclusão pelo front
+        this.getPacientes$.subscribe();
+      },
+      error: () => {
+        this.notificationService.success('Ocorreu um erro Excluir Paciente!');
+      },
+    });
+  }
 }

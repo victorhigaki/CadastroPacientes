@@ -44,9 +44,9 @@ public class PacientesController : ControllerBase
     }
 
     [HttpDelete("{id:guid}")]
-    public async Task<IActionResult> Delete(Guid id)
+    public async Task<IActionResult> DeleteLogical(Guid id)
     {
-        await _pacienteService.Delete(id);
+        await _pacienteService.DeleteLogical(id);
         return NoContent();
     }
 }

@@ -102,8 +102,7 @@
 
     <ngx-datatable-column name="" prop="id">
       <ng-template let-value="value" ngx-datatable-cell-template>
-        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="delete" style="cursor: pointer; color: red;"></mat-icon>
-
+        <mat-icon (click)="onClickDelete(value)" aria-hidden="false" aria-label="Example home icon" fontIcon="delete" style="cursor: pointer; color: red;"></mat-icon>
       </ng-template>
     </ngx-datatable-column>
   </ngx-datatable>

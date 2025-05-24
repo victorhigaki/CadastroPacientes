@@ -8,5 +8,5 @@ public interface IPacienteService
     Task<PacienteDto?> GetById(Guid id);
     Task Create(CreatePacienteDto entity);
     Task Update(PacienteDto entity);
-    Task Delete(Guid id);
+    Task DeleteLogical(Guid id);
 }

@@ -43,8 +43,8 @@ public class PacienteService : IPacienteService
         //await _pacienteRepository.Update(paciente);
     }
 
-    public async Task Delete(Guid id)
+    public async Task DeleteLogical(Guid id)
     {
-        await _pacienteRepository.Delete(id);
+        await _pacienteRepository.DeleteLogical(id);
     }
 }

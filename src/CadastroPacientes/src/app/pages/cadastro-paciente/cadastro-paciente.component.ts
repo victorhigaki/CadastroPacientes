@@ -21,6 +21,7 @@ import { Keyvalue } from '../../models/keyvalue';
 import { Paciente } from '../../models/paciente';
 import { ConveniosService } from '../../services/convenios.service';
 import { PacientesService } from '../../services/pacientes.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-cadastro-paciente',
@@ -44,7 +45,7 @@ export class CadastroPacienteComponent implements OnInit {
   private fb = inject(FormBuilder);
   private convenioService = inject(ConveniosService);
   private pacientesService = inject(PacientesService);
-  private toastr = inject(ToastrService);
+  private notificationService = inject(NotificationService);
   generos = [
     {
       key: 1,
@@ -124,10 +125,12 @@ export class CadastroPacienteComponent implements OnInit {
     const values = this.cadastroForm.getRawValue() as Paciente;
     this.pacientesService.create(values).subscribe({
       next: () => {
-        this.toastr.success('Cadastrado com sucesso!');
+        this.notificationService.success('Paciente Cadastrado com sucesso!');
       },
       error: (err) => {
-        this.toastr.error('Ocorreu um erro ao Cadastrar Paciente');
+        this.notificationService.error(
+          'Ocorreu um erro ao Cadastrar Paciente!'
+        );
       },
     });
   }

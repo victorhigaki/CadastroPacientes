@@ -14,4 +14,8 @@ export class PacientesService {
   create(paciente: Paciente) {
     return this.http.post(this.url, paciente);
   }
+
+  delete(id: string) {
+    return this.http.delete(`${this.url}/${id}`);
+  }
 }

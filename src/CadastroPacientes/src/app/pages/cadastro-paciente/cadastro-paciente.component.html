@@ -39,7 +39,7 @@
     <div>
       <app-base-select
         label="UF do RG"
-        formControlName="ufRg"
+        formControlName="UFRG"
         [items]="ufRg"
       ></app-base-select>
     </div>
@@ -66,7 +66,7 @@
       <app-base-select
         label="Convênio"
         formControlName="convenioId"
-        [items]="convenios"
+        [items]="(getAllConvenios$ | async)"
       ></app-base-select>
     </div>
 

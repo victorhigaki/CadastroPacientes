@@ -8,5 +8,5 @@ public interface IPacienteRepository
     public Task<Paciente?> GetById(Guid id);
     public Task Create(Paciente entity);
     public Task Update(Paciente entity);
-    public Task Delete(Guid id);
+    public Task DeleteLogical(Guid id);
 }
