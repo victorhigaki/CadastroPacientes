@@ -1,3 +1,110 @@
-<pre>
-    {{ getPacientes$ | async | json }}
-</pre>
+<app-base-button routerLink="/cadastro-paciente">
+    Novo
+</app-base-button>
+
+@let pacientes = (getPacientes$ | async);
+
+<div>
+  <ngx-datatable
+    class="material"
+    [rows]="pacientes"
+    [loadingIndicator]="!pacientes"
+    style="zoom: 80%"
+    [rowHeight]="50"
+    [headerHeight]="40"
+  >
+    <ngx-datatable-column name="Nome">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Sobrenome">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Data de Nascimento" prop="dataNascimento">
+      <ng-template ngx-datatable-cell-template let-value="value">
+        {{ value | date : "dd/MM/yyyy" }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Nome">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Gênero">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value === 1 ? "Masculino" : value === 2 ? "Feminino" : "Outro" }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="CPF">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="RG">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="UF do RG" prop="ufRg">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Email">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Celular" prop="celular">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Telefone fixo" prop="telefoneFixo">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Convênio" prop="convenio.nome">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Número da carteirinha do convênio" prop="numeroCarteirinhaConvenio">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column
+      name="Validade da carteirinha"
+      prop="validadeCarteirinha"
+    >
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value | date : "MM/YYYY" }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="" prop="id">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="delete" style="cursor: pointer; color: red;"></mat-icon>
+
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>
