@@ -1,6 +1,7 @@
 ﻿using CadastroPacientes.Application.Dtos;
 using CadastroPacientes.Domain.Entities;
 using CadastroPacientes.Domain.Enum;
+using System;
 
 namespace CadastroPacientes.Application.Extensions;
 public static class PacienteExtension
@@ -16,11 +17,12 @@ public static class PacienteExtension
             paciente.Genero,
             paciente.CPF,
             paciente.RG,
-            paciente.UFRG,
+            paciente.UFRG.ToString(),
             paciente.Email,
             paciente.Celular,
             paciente.TelefoneFixo,
             paciente.ConvenioId,
+            paciente.Convenio.ToDto(),
             paciente.NumeroCarteirinhaConvenio,
             paciente.ValidadeCarteirinha
         );
@@ -42,11 +44,12 @@ public static class PacienteExtension
             Genero = paciente.Genero,
             CPF = paciente.CPF,
             RG = paciente.RG,
-            UFRG = paciente.UFRG,
+            UFRG = (Estado)Enum.Parse(typeof(Estado), paciente.UFRG),
             Email = paciente.Email,
             Celular = paciente.Celular,
             TelefoneFixo = paciente.TelefoneFixo,
             ConvenioId = paciente.ConvenioId,
+            Convenio = paciente.Convenio.ToEntity(),
             NumeroCarteirinhaConvenio = paciente.NumeroCarteirinhaConvenio,
             ValidadeCarteirinha = paciente.ValidadeCarteirinha,
         };
@@ -55,5 +58,25 @@ public static class PacienteExtension
     public static IEnumerable<Paciente> ToEntity(this IEnumerable<PacienteDto> pacientes)
     {
         return pacientes.Select(c => c.ToEntity()).ToList();
+    }
+
+    public static Paciente ToEntity(this CreatePacienteDto paciente)
+    {
+        return new Paciente
+        {
+            Nome = paciente.Nome,
+            Sobrenome = paciente.Sobrenome,
+            DataNascimento = paciente.DataNascimento,
+            Genero = paciente.Genero,
+            CPF = paciente.CPF,
+            RG = paciente.RG,
+            UFRG = (Estado)Enum.Parse(typeof(Estado), paciente.UFRG),
+            Email = paciente.Email,
+            Celular = paciente.Celular,
+            TelefoneFixo = paciente.TelefoneFixo,
+            ConvenioId = paciente.ConvenioId,
+            NumeroCarteirinhaConvenio = paciente.NumeroCarteirinhaConvenio,
+            ValidadeCarteirinha = paciente.ValidadeCarteirinha,
+        };
     }
 }

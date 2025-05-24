@@ -10,23 +10,28 @@ namespace CadastroPacientes.Application.Services;
 public class PacienteService : IPacienteService
 {
     private readonly IPacienteRepository _pacienteRepository;
+    private readonly IConvenioRepository _convenioRepository;
 
-    public PacienteService(IPacienteRepository pacienteRepository)
+    public PacienteService(IPacienteRepository pacienteRepository,
+        IConvenioRepository convenioRepository)
     {
         _pacienteRepository = pacienteRepository;
+        _convenioRepository = convenioRepository;
     }
 
-    public async Task<IEnumerable<Paciente>> GetAll()
+    public async Task<IEnumerable<PacienteDto>> GetAll()
     {
-        return await _pacienteRepository.GetAll();
+        IEnumerable<Paciente> pacientes = await _pacienteRepository.GetAll();
+        return pacientes.ToDto();
     }
 
-    public async Task<Paciente?> GetById(Guid id)
+    public async Task<PacienteDto?> GetById(Guid id)
     {
-        return await _pacienteRepository.GetById(id);
+        Paciente? paciente = await _pacienteRepository.GetById(id);
+        return paciente?.ToDto();
     }
 
-    public async Task Create(PacienteDto pacienteDto)
+    public async Task Create(CreatePacienteDto pacienteDto)
     {
         var paciente = pacienteDto.ToEntity();
         await _pacienteRepository.Create(paciente);

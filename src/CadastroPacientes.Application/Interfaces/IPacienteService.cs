@@ -1,13 +1,12 @@
 ﻿using CadastroPacientes.Application.Dtos;
-using CadastroPacientes.Domain.Entities;
 
 namespace CadastroPacientes.Application.Interfaces;
 
 public interface IPacienteService
 {
-    Task<IEnumerable<Paciente>> GetAll();
-    Task<Paciente?> GetById(Guid id);
-    Task Create(PacienteDto entity);
+    Task<IEnumerable<PacienteDto>> GetAll();
+    Task<PacienteDto?> GetById(Guid id);
+    Task Create(CreatePacienteDto entity);
     Task Update(PacienteDto entity);
     Task Delete(Guid id);
 }

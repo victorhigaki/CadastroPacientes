@@ -30,7 +30,7 @@ public class PacientesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(PacienteDto pacienteDto)
+    public async Task<IActionResult> Create(CreatePacienteDto pacienteDto)
     {
         await _pacienteService.Create(pacienteDto);
         return CreatedAtAction(nameof(GetById), pacienteDto);

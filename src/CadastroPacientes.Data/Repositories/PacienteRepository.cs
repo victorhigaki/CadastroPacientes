@@ -15,7 +15,10 @@ public class PacienteRepository : IPacienteRepository
 
     public async Task<IEnumerable<Paciente>> GetAll()
     {
-        return await _context.Set<Paciente>().ToListAsync();
+        List<Paciente> pacientes = await _context.Pacientes
+            .Include(p => p.Convenio)
+            .ToListAsync();
+        return pacientes;
     }
 
     public async Task<Paciente?> GetById(Guid id)
@@ -25,7 +28,7 @@ public class PacienteRepository : IPacienteRepository
 
     public async Task Create(Paciente entity)
     {
-        _context.Add(entity);
+        _context.Pacientes.Add(entity);
         await _context.SaveChangesAsync();
     }
 
@@ -40,7 +43,7 @@ public class PacienteRepository : IPacienteRepository
         var entity = await GetById(id);
         if (entity != null)
         {
-            _context.Remove(entity);
+            _context.Pacientes.Remove(entity);
             await _context.SaveChangesAsync();
         }
     }

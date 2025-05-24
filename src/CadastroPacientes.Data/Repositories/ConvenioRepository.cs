@@ -17,4 +17,9 @@ public class ConvenioRepository : IConvenioRepository
     {
         return await _context.Convenios.ToListAsync();
     }
+
+    public async Task<Convenio?> GetById(Guid convenioId)
+    {
+        return await _context.Convenios.FindAsync(convenioId);
+    }
 }

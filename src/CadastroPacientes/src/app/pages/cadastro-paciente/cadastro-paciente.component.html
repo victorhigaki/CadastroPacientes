@@ -47,10 +47,18 @@
     <div>
       <app-base-input label="Email" formControlName="email"></app-base-input>
     </div>
+
+    <div>
+      <app-base-input
+        label="Celular"
+        formControlName="celular"
+      ></app-base-input>
+    </div>
+
     <div>
       <app-base-input
         label="Telefone Fixo"
-        formControlName="telefone"
+        formControlName="telefoneFixo"
       ></app-base-input>
     </div>
 
@@ -65,7 +73,7 @@
     <div>
       <app-base-input
         label="Número da carteirinha do convênio"
-        formControlName="numeroCarterinhaConvenio"
+        formControlName="numeroCarteirinhaConvenio"
       ></app-base-input>
     </div>
 
@@ -77,5 +85,10 @@
     </div>
   </div>
 
-  <app-base-button type="submit">Cadastrar</app-base-button>
+  <div class="">
+    <app-base-button type="submit">Cadastrar</app-base-button>
+    <app-base-button type="button" routerLink="/lista-paciente"
+      >Voltar</app-base-button
+    >
+  </div>
 </form>

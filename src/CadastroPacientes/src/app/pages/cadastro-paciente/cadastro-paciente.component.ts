@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -6,6 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { map } from 'rxjs';
@@ -30,6 +32,8 @@ import { PacientesService } from '../../services/pacientes.service';
     BaseRadioComponent,
     BaseSelectComponent,
     MonthYearDatepickerComponent,
+    RouterLink,
+    AsyncPipe,
   ],
   templateUrl: './cadastro-paciente.component.html',
   styleUrl: './cadastro-paciente.component.scss',
@@ -55,74 +59,65 @@ export class CadastroPacienteComponent implements OnInit {
       value: 'Outro',
     },
   ];
-  convenios: Keyvalue[] = [];
+  getAllConvenios$ = this.convenioService.getAll().pipe(
+    map((res) => {
+      return res.map((convenio) => {
+        return {
+          key: convenio.id,
+          value: convenio.nome,
+        } as Keyvalue;
+      });
+    })
+  );
   ufRg: Keyvalue[] = [
-    { key: 0, value: 'AC' },
-    { key: 1, value: 'AL' },
-    { key: 2, value: 'AP' },
-    { key: 3, value: 'AM' },
-    { key: 4, value: 'BA' },
-    { key: 5, value: 'CE' },
-    { key: 6, value: 'ES' },
-    { key: 7, value: 'GO' },
-    { key: 8, value: 'MA' },
-    { key: 9, value: 'MT' },
-    { key: 10, value: 'MS' },
-    { key: 11, value: 'MG' },
-    { key: 12, value: 'PA' },
-    { key: 13, value: 'PB' },
-    { key: 14, value: 'PR' },
-    { key: 15, value: 'PE' },
-    { key: 16, value: 'PI' },
-    { key: 17, value: 'RJ' },
-    { key: 18, value: 'RN' },
-    { key: 19, value: 'RS' },
-    { key: 20, value: 'RO' },
-    { key: 21, value: 'RR' },
-    { key: 22, value: 'SC' },
-    { key: 23, value: 'SP' },
-    { key: 24, value: 'SE' },
-    { key: 25, value: 'TO' },
-    { key: 26, value: 'DF' },
+    { key: 'AC', value: 'AC' },
+    { key: 'AL', value: 'AL' },
+    { key: 'AP', value: 'AP' },
+    { key: 'AM', value: 'AM' },
+    { key: 'BA', value: 'BA' },
+    { key: 'CE', value: 'CE' },
+    { key: 'ES', value: 'ES' },
+    { key: 'GO', value: 'GO' },
+    { key: 'MA', value: 'MA' },
+    { key: 'MT', value: 'MT' },
+    { key: 'MS', value: 'MS' },
+    { key: 'MG', value: 'MG' },
+    { key: 'PA', value: 'PA' },
+    { key: 'PB', value: 'PB' },
+    { key: 'PR', value: 'PR' },
+    { key: 'PE', value: 'PE' },
+    { key: 'PI', value: 'PI' },
+    { key: 'RJ', value: 'RJ' },
+    { key: 'RN', value: 'RN' },
+    { key: 'RS', value: 'RS' },
+    { key: 'RO', value: 'RO' },
+    { key: 'RR', value: 'RR' },
+    { key: 'SC', value: 'SC' },
+    { key: 'SP', value: 'SP' },
+    { key: 'SE', value: 'SE' },
+    { key: 'TO', value: 'TO' },
+    { key: 'DF', value: 'DF' },
   ];
 
   ngOnInit(): void {
     this.cadastroForm = this.fb.group({
-      nome: ['', Validators.required],
-      sobrenome: ['', Validators.required],
+      nome: ['123123', Validators.required],
+      sobrenome: ['123123', Validators.required],
       dataNascimento: new FormControl<Date | null>(
         new Date(),
         Validators.required
       ),
       genero: new FormControl<number | null>(1, Validators.required),
-      cpf: [''],
-      rg: [''],
-      ufRg: [0],
+      cpf: ['123123'],
+      rg: ['123123'],
+      UFRG: [''],
       email: ['', Validators.email],
-      celular: [''],
-      telefoneFixo: [''],
+      celular: ['123123'],
+      telefoneFixo: ['123123'],
       convenioId: [''],
-      numeroCarterinhaConvenio: [''],
+      numeroCarteirinhaConvenio: ['123123'],
       validadeCarteirinha: [moment()],
     });
-
-    this.convenioService
-      .getAll()
-      .pipe(
-        map((res) => {
-          return res.map((convenio) => {
-            return {
-              key: convenio.id,
-              value: convenio.nome,
-            } as Keyvalue;
-          });
-        })
-      )
-      .subscribe({
-        next: (res) => {
-          this.convenios = res;
-        },
-      });
   }
 
   onSubmit() {

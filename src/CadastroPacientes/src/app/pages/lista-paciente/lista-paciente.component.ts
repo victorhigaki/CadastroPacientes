@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 import { ColumnMode, NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { BaseButtonComponent } from '../../components/base-button/base-button.component';
 import { Paciente } from '../../models/paciente';
 import { PacientesService } from '../../services/pacientes.service';
-import { BaseButtonComponent } from '../../components/base-button/base-button.component';
-import { RouterLink } from '@angular/router';
-import { UfService } from '../../services/uf.service';
 
 @Component({
   selector: 'app-lista-paciente',
