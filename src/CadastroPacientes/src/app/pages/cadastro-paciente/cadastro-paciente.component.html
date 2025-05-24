@@ -37,7 +37,11 @@
     </div>
 
     <div>
-      <app-base-input label="UF do RG" formControlName="ufRg"></app-base-input>
+      <app-base-select
+        label="UF do RG"
+        formControlName="ufRg"
+        [items]="ufRg"
+      ></app-base-select>
     </div>
 
     <div>

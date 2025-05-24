@@ -1,4 +1,5 @@
 ﻿using CadastroPacientes.Application.Dtos;
+using CadastroPacientes.Application.Extensions;
 using CadastroPacientes.Application.Interfaces;
 using CadastroPacientes.Domain.Entities;
 using CadastroPacientes.Domain.Interfaces;
@@ -27,8 +28,8 @@ public class PacienteService : IPacienteService
 
     public async Task Create(PacienteDto pacienteDto)
     {
-        //var paciente = pacienteDto.Adapt<Paciente>();
-        //await _pacienteRepository.Create(paciente);
+        var paciente = pacienteDto.ToEntity();
+        await _pacienteRepository.Create(paciente);
     }
 
     public async Task Update(PacienteDto pacienteDto)

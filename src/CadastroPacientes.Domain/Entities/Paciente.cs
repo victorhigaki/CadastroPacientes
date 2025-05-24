@@ -21,5 +21,5 @@ public class Paciente
     public int NumeroCarteirinhaConvenio { get; set; }
     public DateTime ValidadeCarteirinha { get; set; }
 
-    public Status Status { get; set; }
+    public Status Status { get; set; } = Status.Ativo;
 }

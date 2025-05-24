@@ -3,6 +3,7 @@
 namespace CadastroPacientes.Application.Dtos;
 
 public record PacienteDto(
+    Guid Id,
     string Nome,
     string Sobrenome,
     DateTime DataNascimento,
@@ -13,10 +14,7 @@ public record PacienteDto(
     string Email,
     string Celular,
     string TelefoneFixo,
-
-    Guid Convenio,
+    Guid ConvenioId,
     int NumeroCarteirinhaConvenio,
-    DateTime ValidadeCarteirinha,
-
-    bool Excluido
+    DateTime ValidadeCarteirinha
 );
