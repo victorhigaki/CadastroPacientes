@@ -12,7 +12,7 @@ Autor: Victor Higaki
     - CadastroPacientes.Application - Use cases / Services
     - CadastroPacientes.CrossCutting - Dependency Injection 
     - CadastroPacientes.Data - Repository Infrastructure
-    - CadastroPacientes.Data - Entities and Models
+    - CadastroPacientes.Domain - Entities and Models
 - README.md - Project Documententation
 
 ## Stack:
