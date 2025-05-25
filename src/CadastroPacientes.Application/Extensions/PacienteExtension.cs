@@ -49,7 +49,7 @@ public static class PacienteExtension
             Celular = paciente.Celular,
             TelefoneFixo = paciente.TelefoneFixo,
             ConvenioId = paciente.ConvenioId,
-            Convenio = paciente.Convenio.ToEntity(),
+            Convenio = paciente.Convenio != null ? paciente.Convenio?.ToEntity() : null,
             NumeroCarteirinhaConvenio = paciente.NumeroCarteirinhaConvenio,
             ValidadeCarteirinha = paciente.ValidadeCarteirinha,
         };

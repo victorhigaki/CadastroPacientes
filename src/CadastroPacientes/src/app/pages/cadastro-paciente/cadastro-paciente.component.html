@@ -9,17 +9,17 @@
         <mat-card-content>
           <div>
             <div class="row">
-              <app-base-input
+              <app-base-input-mask
                 label="Nome"
                 formControlName="nome"
-              ></app-base-input>
+              ></app-base-input-mask>
             </div>
 
             <div>
-              <app-base-input
+              <app-base-input-mask
                 label="Sobrenome"
                 formControlName="sobrenome"
-              ></app-base-input>
+              ></app-base-input-mask>
             </div>
 
             <div>
@@ -38,52 +38,52 @@
             </div>
 
             <div>
-              <app-base-input
+              <app-base-input-mask
                 label="CPF"
                 formControlName="cpf"
                 mask="000.000.000-00"
-              ></app-base-input>
+              ></app-base-input-mask>
             </div>
 
             <div>
-              <app-base-input
+              <app-base-input-mask
                 label="RG"
                 formControlName="rg"
                 mask="00.000.000-0"
-              ></app-base-input>
+              ></app-base-input-mask>
             </div>
 
             <div>
               <app-base-select
                 label="UF do RG"
-                formControlName="UFRG"
-                [items]="ufRg"
+                formControlName="ufrg"
+                [items]="ufrg"
               ></app-base-select>
             </div>
 
             <div>
-              <app-base-input
+              <app-base-input-mask
                 label="Email"
                 formControlName="email"
                 mask="A*@A*.SSS"
                 [dropSpecialCharacters]="false"
-              ></app-base-input>
+              ></app-base-input-mask>
             </div>
 
             <div>
-              <app-base-input
+              <app-base-input-mask
                 label="Celular"
                 formControlName="celular"
                 mask="(00) 00000-0000"
-              ></app-base-input>
+              ></app-base-input-mask>
             </div>
 
             <div>
-              <app-base-input
+              <app-base-input-mask
                 label="Telefone Fixo"
                 formControlName="telefoneFixo"
                 mask="(00) 0000-0000"
-              ></app-base-input>
+              ></app-base-input-mask>
             </div>
 
             <div>
@@ -95,11 +95,11 @@
             </div>
 
             <div>
-              <app-base-input
+              <app-base-input-mask
                 label="Número da carteirinha do convênio"
                 formControlName="numeroCarteirinhaConvenio"
                 mask="0*"
-              ></app-base-input>
+              ></app-base-input-mask>
             </div>
 
             <div>

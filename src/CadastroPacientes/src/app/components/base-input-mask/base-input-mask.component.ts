@@ -8,19 +8,29 @@ import { ControlValueAccessor, FormsModule, NgControl } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @Component({
-  selector: 'app-base-input',
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIconModule],
+  selector: 'app-base-input-mask',
+  imports: [
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    NgxMaskDirective,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './base-input.component.html',
-  styleUrl: './base-input.component.scss',
+  templateUrl: './base-input-mask.component.html',
+  styleUrl: './base-input-mask.component.scss',
+  providers: [provideNgxMask()],
 })
-export class BaseInputComponent implements ControlValueAccessor {
+export class BaseInputMaskComponent implements ControlValueAccessor {
   label = input('');
   placeholder = input('');
   hint = input('');
   icon = input('');
+  mask = input<string>();
+  dropSpecialCharacters = input<boolean>(true);
 
   inputValue = '';
   private ngControl = inject(NgControl, { optional: true });

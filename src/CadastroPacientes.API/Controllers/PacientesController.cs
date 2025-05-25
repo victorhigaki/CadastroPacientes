@@ -30,14 +30,14 @@ public class PacientesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(CreatePacienteDto pacienteDto)
+    public async Task<IActionResult> Create(PacienteDto pacienteDto)
     {
-        await _pacienteService.Create(pacienteDto);
-        return CreatedAtAction(nameof(GetById), pacienteDto);
+        var result = await _pacienteService.Create(pacienteDto);
+        return CreatedAtAction(nameof(GetById),new { id = result.Id }, pacienteDto);
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<IActionResult> Update(Guid id, UpdatePacienteDto pacienteDto)
+    public async Task<IActionResult> Update(Guid id, PacienteDto pacienteDto)
     {
         if (id != pacienteDto.Id) BadRequest();
         await _pacienteService.Update(pacienteDto);

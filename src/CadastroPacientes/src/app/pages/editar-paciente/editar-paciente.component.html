@@ -1,0 +1,143 @@
+<div class="mt">
+  <mat-card appearance="outlined">
+    <div class="card">
+      <form [formGroup]="editarForm" (ngSubmit)="onSubmit()">
+        <mat-card-header>
+          <mat-card-title>Cadastro</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <div>
+            <div class="row">
+              <mat-form-field appearance="fill">
+                <mat-label>Nome</mat-label>
+                <input matInput formControlName="nome" />
+              </mat-form-field>
+
+              <!-- <app-base-input
+                formControlName="nome"
+                label="Nome"
+              ></app-base-input> -->
+            </div>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Sobrenome</mat-label>
+              <input matInput formControlName="sobrenome" />
+            </mat-form-field>
+
+            <div>
+              <mat-form-field>
+                <mat-label>Data Nascimento</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="picker"
+                  formControlName="dataNascimento"
+                />
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div>
+              <app-base-radio
+                label="Gênero"
+                formControlName="genero"
+                [items]="generos"
+              ></app-base-radio>
+            </div>
+
+            <div>
+              <mat-form-field appearance="fill">
+                <mat-label>CPF</mat-label>
+                <input
+                  matInput
+                  formControlName="cpf"
+                  [mask]="'000.000.000-00'"
+                />
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field appearance="fill">
+                <mat-label>RG</mat-label>
+                <input matInput formControlName="rg" [mask]="'00.000.000-0'" />
+              </mat-form-field>
+            </div>
+
+            <div>
+              <app-base-select
+                label="UF do RG"
+                formControlName="ufrg"
+                [items]="ufrg"
+              ></app-base-select>
+            </div>
+
+            <div>
+              <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" mask="A*@A*.SSS" />
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field appearance="fill">
+                <mat-label>Celular</mat-label>
+                <input
+                  matInput
+                  formControlName="celular"
+                  mask="(00) 00000-0000"
+                />
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field appearance="fill">
+                <mat-label>Telefone Fixo</mat-label>
+                <input
+                  matInput
+                  formControlName="telefoneFixo"
+                  mask="(00) 0000-0000"
+                />
+              </mat-form-field>
+            </div>
+
+            <div>
+              <app-base-select
+                label="Convênio"
+                formControlName="convenioId"
+                [items]="getAllConvenios$ | async"
+              ></app-base-select>
+            </div>
+
+            <div>
+              <mat-form-field appearance="fill">
+                <mat-label>Número da carteirinha do convênio</mat-label>
+                <input matInput formControlName="numeroCarteirinhaConvenio" />
+              </mat-form-field>
+            </div>
+
+            <div>
+              <app-month-year-datepicker
+                label="Validade"
+                formControlName="validadeCarteirinha"
+              ></app-month-year-datepicker>
+            </div>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <div style="margin-right: 15px">
+            <app-base-button type="submit">Salvar</app-base-button>
+          </div>
+          <app-base-button type="button" routerLink="/lista-paciente">
+            Voltar
+          </app-base-button>
+        </mat-card-actions>
+      </form>
+    </div>
+  </mat-card>
+</div>

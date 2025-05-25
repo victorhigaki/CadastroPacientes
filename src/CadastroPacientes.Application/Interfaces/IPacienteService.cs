@@ -6,7 +6,7 @@ public interface IPacienteService
 {
     Task<IEnumerable<PacienteDto>> GetAll();
     Task<PacienteDto?> GetById(Guid id);
-    Task Create(CreatePacienteDto entity);
-    Task Update(UpdatePacienteDto entity);
+    Task<PacienteDto> Create(PacienteDto entity);
+    Task Update(PacienteDto entity);
     Task DeleteLogical(Guid id);
 }

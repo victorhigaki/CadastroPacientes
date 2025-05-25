@@ -37,9 +37,9 @@ public class PacienteRepository : IPacienteRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task Update(Paciente entity)
+    public async Task Update(Paciente paciente)
     {
-        _context.Entry(entity).State = EntityState.Modified;
+        _context.Pacientes.Entry(paciente).State = EntityState.Modified;
         await _context.SaveChangesAsync();
     }
 

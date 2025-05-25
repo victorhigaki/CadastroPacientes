@@ -15,10 +15,7 @@ public record PacienteDto(
     string Celular,
     string TelefoneFixo,
     Guid ConvenioId,
-    ConvenioDto Convenio,
+    ConvenioDto? Convenio,
     int NumeroCarteirinhaConvenio,
     DateTime ValidadeCarteirinha
-)
-{
-    public ConvenioDto Convenio { get; init; }
-}
+);

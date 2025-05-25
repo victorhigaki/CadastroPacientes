@@ -1,5 +1,5 @@
-<div>
-  <div>
+<div class="margin">
+  <div class="margin-button">
     <app-base-button routerLink="/cadastro-paciente"> Novo </app-base-button>
   </div>
 
@@ -31,7 +31,7 @@
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column name="Gênero">
+      <ngx-datatable-column name="Gênero" prop="genero">
         <ng-template let-value="value" ngx-datatable-cell-template>
           {{ value === 1 ? "Masculino" : value === 2 ? "Feminino" : "Outro" }}
         </ng-template>

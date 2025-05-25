@@ -3,20 +3,16 @@ using CadastroPacientes.Application.Extensions;
 using CadastroPacientes.Application.Interfaces;
 using CadastroPacientes.Domain.Entities;
 using CadastroPacientes.Domain.Interfaces;
-//using Mapster;
 
 namespace CadastroPacientes.Application.Services;
 
 public class PacienteService : IPacienteService
 {
     private readonly IPacienteRepository _pacienteRepository;
-    private readonly IConvenioRepository _convenioRepository;
 
-    public PacienteService(IPacienteRepository pacienteRepository,
-        IConvenioRepository convenioRepository)
+    public PacienteService(IPacienteRepository pacienteRepository)
     {
         _pacienteRepository = pacienteRepository;
-        _convenioRepository = convenioRepository;
     }
 
     public async Task<IEnumerable<PacienteDto>> GetAll()
@@ -31,13 +27,14 @@ public class PacienteService : IPacienteService
         return paciente?.ToDto();
     }
 
-    public async Task Create(CreatePacienteDto pacienteDto)
+    public async Task<PacienteDto> Create(PacienteDto pacienteDto)
     {
         var paciente = pacienteDto.ToEntity();
         await _pacienteRepository.Create(paciente);
+        return pacienteDto;
     }
 
-    public async Task Update(UpdatePacienteDto pacienteDto)
+    public async Task Update(PacienteDto pacienteDto)
     {
         var paciente = pacienteDto.ToEntity();
         await _pacienteRepository.Update(paciente);

@@ -9,53 +9,68 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
-import { RouterLink } from '@angular/router';
-import moment from 'moment';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { NgxMaskDirective } from 'ngx-mask';
 import { map } from 'rxjs';
 import { BaseButtonComponent } from '../../components/base-button/base-button.component';
-import { BaseDatepickerComponent } from '../../components/base-datepicker/base-datepicker.component';
-import { BaseInputMaskComponent } from '../../components/base-input-mask/base-input-mask.component';
 import { BaseRadioComponent } from '../../components/base-radio/base-radio.component';
 import { BaseSelectComponent } from '../../components/base-select/base-select.component';
-import { MonthYearDatepickerComponent } from '../../components/month-year-datepicker/month-year-datepicker.component';
 import { Keyvalue } from '../../models/keyvalue';
 import { Paciente } from '../../models/paciente';
 import { ConveniosService } from '../../services/convenios.service';
 import { NotificationService } from '../../services/notification.service';
 import { PacientesService } from '../../services/pacientes.service';
-import { provideNgxMask } from 'ngx-mask';
+import moment from 'moment';
+import { MonthYearDatepickerComponent } from '../../components/month-year-datepicker/month-year-datepicker.component';
+import { BaseInputComponent } from '../../components/base-input/base-input.component';
 
 @Component({
   selector: 'app-cadastro-paciente',
   imports: [
-    ReactiveFormsModule,
-    BaseInputMaskComponent,
-    BaseButtonComponent,
-    BaseDatepickerComponent,
-    BaseRadioComponent,
-    BaseSelectComponent,
-    MonthYearDatepickerComponent,
     RouterLink,
     AsyncPipe,
     MatCardModule,
     MatChipsModule,
+    FormsModule,
+
+    ReactiveFormsModule,
+    BaseButtonComponent,
+    BaseRadioComponent,
+    BaseSelectComponent,
+    MonthYearDatepickerComponent,
+
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    NgxMaskDirective,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './cadastro-paciente.component.html',
-  styleUrl: './cadastro-paciente.component.scss',
-  providers: [ConveniosService, PacientesService],
+  templateUrl: './editar-paciente.component.html',
+  styleUrl: './editar-paciente.component.scss',
+  providers: [ConveniosService, PacientesService, provideNativeDateAdapter()],
 })
-export class CadastroPacienteComponent implements OnInit {
-  cadastroForm!: FormGroup;
+export class EditarPacienteComponent implements OnInit {
+  editarForm!: FormGroup;
   private fb = inject(FormBuilder);
   private convenioService = inject(ConveniosService);
   private pacientesService = inject(PacientesService);
   private notificationService = inject(NotificationService);
+  private route = inject(ActivatedRoute);
+  pacienteId = this.route.snapshot.paramMap.get('id') || '';
   generos = [
     {
       key: 1,
@@ -109,9 +124,11 @@ export class CadastroPacienteComponent implements OnInit {
     { key: 'TO', value: 'TO' },
     { key: 'DF', value: 'DF' },
   ];
+  paciente!: Paciente;
 
   ngOnInit(): void {
-    this.cadastroForm = this.fb.group({
+    this.editarForm = this.fb.group({
+      id: [''],
       nome: ['', Validators.required],
       sobrenome: ['', Validators.required],
       dataNascimento: new FormControl<Date | null>(
@@ -129,12 +146,21 @@ export class CadastroPacienteComponent implements OnInit {
       numeroCarteirinhaConvenio: ['', Validators.required],
       validadeCarteirinha: [moment(), Validators.required],
     });
+
+    this.getPaciente();
+  }
+
+  private getPaciente() {
+    this.pacientesService.getById(this.pacienteId).subscribe({
+      next: (res) => {
+        this.editarForm.patchValue({ ...res });
+      },
+    });
   }
 
   onSubmit() {
-    if (!this.cadastroForm.valid) return;
-    const values = this.cadastroForm.getRawValue() as Paciente;
-    this.pacientesService.create(values).subscribe({
+    const values = this.editarForm.getRawValue() as Paciente;
+    this.pacientesService.update(this.pacienteId, values).subscribe({
       next: () => {
         this.notificationService.success('Paciente Cadastrado com sucesso!');
       },
