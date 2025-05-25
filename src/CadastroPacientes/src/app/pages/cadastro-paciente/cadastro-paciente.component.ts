@@ -1,5 +1,5 @@
-import { AsyncPipe, JsonPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -7,6 +7,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
 import { RouterLink } from '@angular/router';
 import moment from 'moment';
 import { map } from 'rxjs';
@@ -34,8 +36,10 @@ import { PacientesService } from '../../services/pacientes.service';
     MonthYearDatepickerComponent,
     RouterLink,
     AsyncPipe,
-    JsonPipe,
+    MatCardModule,
+    MatChipsModule,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cadastro-paciente.component.html',
   styleUrl: './cadastro-paciente.component.scss',
   providers: [ConveniosService, PacientesService],

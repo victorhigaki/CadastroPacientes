@@ -1,110 +1,125 @@
-<form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()" class="container">
-  <h3>Cadastro</h3>
+<div class="container">
+  <mat-card appearance="outlined">
+    <div class="card">
+      <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()">
+        <mat-card-header>
+          <mat-card-title>Cadastro</mat-card-title>
+        </mat-card-header>
 
-  <div class="">
-    <div class="">
-      <app-base-input label="Nome" formControlName="nome"></app-base-input>
+        <mat-card-content>
+          <div>
+            <div class="row">
+              <app-base-input
+                label="Nome"
+                formControlName="nome"
+              ></app-base-input>
+            </div>
+
+            <div>
+              <app-base-input
+                label="Sobrenome"
+                formControlName="sobrenome"
+              ></app-base-input>
+            </div>
+
+            <div>
+              <app-base-datepicker
+                label="Data Nascimento"
+                formControlName="dataNascimento"
+              ></app-base-datepicker>
+            </div>
+
+            <div>
+              <app-base-radio
+                label="Gênero"
+                formControlName="genero"
+                [items]="generos"
+              ></app-base-radio>
+            </div>
+
+            <div>
+              <app-base-input
+                label="CPF"
+                formControlName="cpf"
+                mask="000.000.000-00"
+              ></app-base-input>
+            </div>
+
+            <div>
+              <app-base-input
+                label="RG"
+                formControlName="rg"
+                mask="00.000.000-0"
+              ></app-base-input>
+            </div>
+
+            <div>
+              <app-base-select
+                label="UF do RG"
+                formControlName="UFRG"
+                [items]="ufRg"
+              ></app-base-select>
+            </div>
+
+            <div>
+              <app-base-input
+                label="Email"
+                formControlName="email"
+                mask="A*@A*.SSS"
+                [dropSpecialCharacters]="false"
+              ></app-base-input>
+            </div>
+
+            <div>
+              <app-base-input
+                label="Celular"
+                formControlName="celular"
+                mask="(00) 00000-0000"
+              ></app-base-input>
+            </div>
+
+            <div>
+              <app-base-input
+                label="Telefone Fixo"
+                formControlName="telefoneFixo"
+                mask="(00) 0000-0000"
+              ></app-base-input>
+            </div>
+
+            <div>
+              <app-base-select
+                label="Convênio"
+                formControlName="convenioId"
+                [items]="getAllConvenios$ | async"
+              ></app-base-select>
+            </div>
+
+            <div>
+              <app-base-input
+                label="Número da carteirinha do convênio"
+                formControlName="numeroCarteirinhaConvenio"
+                mask="0*"
+              ></app-base-input>
+            </div>
+
+            <div>
+              <app-month-year-datepicker
+                label="Validade"
+                formControlName="validadeCarteirinha"
+              ></app-month-year-datepicker>
+            </div>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <div style="margin-right: 15px">
+            <app-base-button type="submit">Cadastrar</app-base-button>
+          </div>
+          <app-base-button type="button" routerLink="/lista-paciente">
+            Voltar
+          </app-base-button>
+        </mat-card-actions>
+      </form>
     </div>
-
-    <div class="">
-      <app-base-input
-        label="Sobrenome"
-        formControlName="sobrenome"
-      ></app-base-input>
-    </div>
-
-    <div class="">
-      <app-base-datepicker
-        label="Data Nascimento"
-        formControlName="dataNascimento"
-      ></app-base-datepicker>
-    </div>
-
-    <div>
-      <app-base-radio
-        label="Gênero"
-        formControlName="genero"
-        [items]="generos"
-      ></app-base-radio>
-    </div>
-
-    <div>
-      <app-base-input
-        label="CPF"
-        formControlName="cpf"
-        mask="000.000.000-00"
-      ></app-base-input>
-    </div>
-
-    <div>
-      <app-base-input
-        label="RG"
-        formControlName="rg"
-        mask="00.000.000-0"
-      ></app-base-input>
-    </div>
-
-    <div>
-      <app-base-select
-        label="UF do RG"
-        formControlName="UFRG"
-        [items]="ufRg"
-      ></app-base-select>
-    </div>
-
-    <div>
-      <app-base-input
-        label="Email"
-        formControlName="email"
-        mask="A*@A*.SSS"
-        [dropSpecialCharacters]="false"
-      ></app-base-input>
-    </div>
-
-    <div>
-      <app-base-input
-        label="Celular"
-        formControlName="celular"
-        mask="(00) 00000-0000"
-      ></app-base-input>
-    </div>
-
-    <div>
-      <app-base-input
-        label="Telefone Fixo"
-        formControlName="telefoneFixo"
-        mask="(00) 0000-0000"
-      ></app-base-input>
-    </div>
-
-    <div>
-      <app-base-select
-        label="Convênio"
-        formControlName="convenioId"
-        [items]="getAllConvenios$ | async"
-      ></app-base-select>
-    </div>
-
-    <div>
-      <app-base-input
-        label="Número da carteirinha do convênio"
-        formControlName="numeroCarteirinhaConvenio"
-        mask="0*"
-      ></app-base-input>
-    </div>
-
-    <div>
-      <app-month-year-datepicker
-        label="Validade"
-        formControlName="validadeCarteirinha"
-      ></app-month-year-datepicker>
-    </div>
-  </div>
-
-  <div class="">
-    <app-base-button type="submit">Cadastrar</app-base-button>
-    <app-base-button type="button" routerLink="/lista-paciente"
-      >Voltar</app-base-button
-    >
-  </div>
-</form>
+  </mat-card>
+</div>
