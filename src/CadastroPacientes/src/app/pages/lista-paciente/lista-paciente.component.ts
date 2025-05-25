@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { Router, RouterLink } from '@angular/router';
 import { ColumnMode, NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgxMaskPipe } from 'ngx-mask';
 import { tap } from 'rxjs';
@@ -18,6 +19,7 @@ import { PacientesService } from '../../services/pacientes.service';
     BaseButtonComponent,
     RouterLink,
     NgxMaskPipe,
+    MatTooltipModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './lista-paciente.component.html',
@@ -27,6 +29,7 @@ import { PacientesService } from '../../services/pacientes.service';
 export class ListaPacienteComponent {
   private pacientesService = inject(PacientesService);
   private notificationService = inject(NotificationService);
+  private router = inject(Router);
 
   ColumnMode = ColumnMode;
 
@@ -52,5 +55,9 @@ export class ListaPacienteComponent {
         this.notificationService.success('Ocorreu um erro Excluir Paciente!');
       },
     });
+  }
+
+  onClickEdit(id: string) {
+    this.router.navigate([`editar-paciente/${id}`]);
   }
 }

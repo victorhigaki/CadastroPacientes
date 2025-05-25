@@ -37,8 +37,9 @@ public class PacientesController : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<IActionResult> Update(Guid id, PacienteDto pacienteDto)
+    public async Task<IActionResult> Update(Guid id, UpdatePacienteDto pacienteDto)
     {
+        if (id != pacienteDto.Id) BadRequest();
         await _pacienteService.Update(pacienteDto);
         return NoContent();
     }

@@ -1,8 +1,6 @@
 <div>
   <div>
-    <app-base-button routerLink="/cadastro-paciente"> 
-      Novo
-     </app-base-button>
+    <app-base-button routerLink="/cadastro-paciente"> Novo </app-base-button>
   </div>
 
   <div>
@@ -47,7 +45,7 @@
 
       <ngx-datatable-column name="RG">
         <ng-template let-value="value" ngx-datatable-cell-template>
-          {{ value  | mask: '00.000.000-0'}}
+          {{ value | mask : "00.000.000-0" }}
         </ng-template>
       </ngx-datatable-column>
 
@@ -65,13 +63,13 @@
 
       <ngx-datatable-column name="Celular" prop="celular">
         <ng-template let-value="value" ngx-datatable-cell-template>
-          {{ value | mask: '(00) 00000-0000' }}
+          {{ value | mask : "(00) 00000-0000" }}
         </ng-template>
       </ngx-datatable-column>
 
       <ngx-datatable-column name="Telefone fixo" prop="telefoneFixo">
         <ng-template let-value="value" ngx-datatable-cell-template>
-          {{ value  | mask: '(00) 0000-0000' }}
+          {{ value | mask : "(00) 0000-0000" }}
         </ng-template>
       </ngx-datatable-column>
 
@@ -102,11 +100,19 @@
       <ngx-datatable-column name="" prop="id">
         <ng-template let-value="value" ngx-datatable-cell-template>
           <mat-icon
+            matTooltip="Editar"
+            (click)="onClickEdit(value)"
+            aria-hidden="false"
+            fontIcon="edit"
+            class="edit cursor-pointer"
+          ></mat-icon>
+
+          <mat-icon
+            matTooltip="Apagar"
             (click)="onClickDelete(value)"
             aria-hidden="false"
-            aria-label="Example home icon"
             fontIcon="delete"
-            style="cursor: pointer; color: red"
+            class="delete cursor-pointer"
           ></mat-icon>
         </ng-template>
       </ngx-datatable-column>

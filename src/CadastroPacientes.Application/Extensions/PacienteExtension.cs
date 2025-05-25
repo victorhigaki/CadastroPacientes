@@ -79,4 +79,25 @@ public static class PacienteExtension
             ValidadeCarteirinha = paciente.ValidadeCarteirinha,
         };
     }
+
+    public static Paciente ToEntity(this UpdatePacienteDto paciente)
+    {
+        return new Paciente
+        {
+            Id = paciente.Id,
+            Nome = paciente.Nome,
+            Sobrenome = paciente.Sobrenome,
+            DataNascimento = paciente.DataNascimento,
+            Genero = paciente.Genero,
+            CPF = paciente.CPF,
+            RG = paciente.RG,
+            UFRG = (Estado)Enum.Parse(typeof(Estado), paciente.UFRG),
+            Email = paciente.Email,
+            Celular = paciente.Celular,
+            TelefoneFixo = paciente.TelefoneFixo,
+            ConvenioId = paciente.ConvenioId,
+            NumeroCarteirinhaConvenio = paciente.NumeroCarteirinhaConvenio,
+            ValidadeCarteirinha = paciente.ValidadeCarteirinha,
+        };
+    }
 }

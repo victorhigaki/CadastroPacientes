@@ -11,8 +11,16 @@ export class PacientesService {
     return this.http.get<Paciente[]>(this.url);
   }
 
+  getById(pacienteId: string) {
+    return this.http.get<Paciente>(`${this.url}/${pacienteId}`);
+  }
+
   create(paciente: Paciente) {
     return this.http.post(this.url, paciente);
+  }
+
+  update(id: string, paciente: Paciente) {
+    return this.http.put(`${this.url}/${id}`, paciente);
   }
 
   delete(id: string) {

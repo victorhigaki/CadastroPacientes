@@ -37,10 +37,10 @@ public class PacienteService : IPacienteService
         await _pacienteRepository.Create(paciente);
     }
 
-    public async Task Update(PacienteDto pacienteDto)
+    public async Task Update(UpdatePacienteDto pacienteDto)
     {
-        //var paciente = pacienteDto.Adapt<Paciente>();
-        //await _pacienteRepository.Update(paciente);
+        var paciente = pacienteDto.ToEntity();
+        await _pacienteRepository.Update(paciente);
     }
 
     public async Task DeleteLogical(Guid id)

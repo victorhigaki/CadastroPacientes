@@ -2,7 +2,7 @@
 
 namespace CadastroPacientes.Application.Dtos;
 
-public record PacienteDto(
+public record UpdatePacienteDto(
     Guid Id,
     string Nome,
     string Sobrenome,
@@ -15,10 +15,6 @@ public record PacienteDto(
     string Celular,
     string TelefoneFixo,
     Guid ConvenioId,
-    ConvenioDto Convenio,
     int NumeroCarteirinhaConvenio,
     DateTime ValidadeCarteirinha
-)
-{
-    public ConvenioDto Convenio { get; init; }
-}
+);
