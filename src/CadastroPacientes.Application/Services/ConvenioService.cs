@@ -16,7 +16,8 @@ public class ConvenioService : IConvenioService
     public async Task<IEnumerable<ConvenioDto>> GetAll()
     {
         var convenios = await _convenioRepository.GetAll();
-        var convenioDto = convenios.ToDto();
+        var convenioDto = convenios.ToDto()
+            .OrderBy(c => c.Nome);
         return convenioDto;
     }
 }

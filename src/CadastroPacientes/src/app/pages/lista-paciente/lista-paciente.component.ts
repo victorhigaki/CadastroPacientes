@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { ColumnMode, NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgxMaskPipe } from 'ngx-mask';
 import { tap } from 'rxjs';
 import { BaseButtonComponent } from '../../components/base-button/base-button.component';
 import { NotificationService } from '../../services/notification.service';
@@ -16,6 +17,7 @@ import { PacientesService } from '../../services/pacientes.service';
     MatIconModule,
     BaseButtonComponent,
     RouterLink,
+    NgxMaskPipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './lista-paciente.component.html',
@@ -25,6 +27,8 @@ import { PacientesService } from '../../services/pacientes.service';
 export class ListaPacienteComponent {
   private pacientesService = inject(PacientesService);
   private notificationService = inject(NotificationService);
+
+  ColumnMode = ColumnMode;
 
   public getPacientes$ = this.pacientesService.getAll().pipe(
     tap({
@@ -37,19 +41,11 @@ export class ListaPacienteComponent {
     })
   );
 
-  // rows = [
-  //   { name: 'Austin', gender: 'Male', company: 'Swimlane' },
-  //   { name: 'Dany', gender: 'Male', company: 'KFC' },
-  //   { name: 'Molly', gender: 'Female', company: 'Burger King' },
-  // ];
-
-  ColumnMode = ColumnMode;
-
   onClickDelete(id: string) {
     this.pacientesService.delete(id).subscribe({
       next: () => {
         this.notificationService.success('Paciente Excluído com sucesso!');
-        // todo colocar exclusão pelo front
+        // todo: colocar exclusão pelo front
         this.getPacientes$.subscribe();
       },
       error: () => {
