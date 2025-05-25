@@ -21,18 +21,18 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import moment from 'moment';
 import { NgxMaskDirective } from 'ngx-mask';
 import { map } from 'rxjs';
 import { BaseButtonComponent } from '../../components/base-button/base-button.component';
 import { BaseRadioComponent } from '../../components/base-radio/base-radio.component';
 import { BaseSelectComponent } from '../../components/base-select/base-select.component';
+import { MonthYearDatepickerComponent } from '../../components/month-year-datepicker/month-year-datepicker.component';
 import { Keyvalue } from '../../models/keyvalue';
 import { Paciente } from '../../models/paciente';
 import { ConveniosService } from '../../services/convenios.service';
 import { NotificationService } from '../../services/notification.service';
 import { PacientesService } from '../../services/pacientes.service';
-import moment from 'moment';
-import { MonthYearDatepickerComponent } from '../../components/month-year-datepicker/month-year-datepicker.component';
 
 @Component({
   selector: 'app-cadastro-paciente',
@@ -149,7 +149,32 @@ export class PacienteFormComponent implements OnInit {
       validadeCarteirinha: [moment(), Validators.required],
     });
 
+    this.validarSomenteTelefoneOuCelular();
+
     if (this.pacienteId) this.getPaciente();
+  }
+
+  private validarSomenteTelefoneOuCelular() {
+    this.pacienteForm.valueChanges.subscribe((value) => {
+      if (value.telefoneFixo && value.celular) {
+        this.pacienteForm
+          .get('telefoneFixo')
+          ?.addValidators(Validators.required);
+        this.pacienteForm.get('celular')?.addValidators(Validators.required);
+      }
+      if (value.telefoneFixo && !value.celular) {
+        this.pacienteForm
+          .get('telefoneFixo')
+          ?.addValidators(Validators.required);
+        this.pacienteForm.get('celular')?.clearValidators();
+      }
+      if (value.celular && !value.telefoneFixo) {
+        this.pacienteForm.get('celular')?.addValidators(Validators.required);
+        this.pacienteForm.get('telefoneFixo')?.clearValidators();
+      }
+      this.pacienteForm.get('celular')?.updateValueAndValidity();
+      this.pacienteForm.get('telefoneFixo')?.updateValueAndValidity();
+    });
   }
 
   private getPaciente() {
@@ -242,6 +267,6 @@ export class PacienteFormComponent implements OnInit {
       errors.push('Validade Carteirinha');
     }
 
-    this.notificationService.alert('Completar os campos: ' + errors.join(", "))
+    this.notificationService.alert('Completar os campos: ' + errors.join(', '));
   }
 }
