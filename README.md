@@ -14,6 +14,7 @@ Autor: Victor Higaki
     - CadastroPacientes.Data - Repository Infrastructure
     - CadastroPacientes.Domain - Entities and Models
 - README.md - Project Documententation
+- scripts - scripts to create the database and run the migrations manually
 
 ## Stack:
 
