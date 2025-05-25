@@ -29,11 +29,19 @@
     </div>
 
     <div>
-      <app-base-input label="CPF" formControlName="cpf"></app-base-input>
+      <app-base-input
+        label="CPF"
+        formControlName="cpf"
+        mask="000.000.000-00"
+      ></app-base-input>
     </div>
 
     <div>
-      <app-base-input label="RG" formControlName="rg"></app-base-input>
+      <app-base-input
+        label="RG"
+        formControlName="rg"
+        mask="00.000.000-0"
+      ></app-base-input>
     </div>
 
     <div>
@@ -45,13 +53,19 @@
     </div>
 
     <div>
-      <app-base-input label="Email" formControlName="email"></app-base-input>
+      <app-base-input
+        label="Email"
+        formControlName="email"
+        mask="A*@A*.SSS"
+        [dropSpecialCharacters]="false"
+      ></app-base-input>
     </div>
 
     <div>
       <app-base-input
         label="Celular"
         formControlName="celular"
+        mask="(00) 00000-0000"
       ></app-base-input>
     </div>
 
@@ -59,6 +73,7 @@
       <app-base-input
         label="Telefone Fixo"
         formControlName="telefoneFixo"
+        mask="(00) 0000-0000"
       ></app-base-input>
     </div>
 
@@ -66,7 +81,7 @@
       <app-base-select
         label="Convênio"
         formControlName="convenioId"
-        [items]="(getAllConvenios$ | async)"
+        [items]="getAllConvenios$ | async"
       ></app-base-select>
     </div>
 
@@ -74,6 +89,7 @@
       <app-base-input
         label="Número da carteirinha do convênio"
         formControlName="numeroCarteirinhaConvenio"
+        mask="0*"
       ></app-base-input>
     </div>
 

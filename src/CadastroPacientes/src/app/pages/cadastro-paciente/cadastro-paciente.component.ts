@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -9,7 +9,6 @@ import {
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import moment from 'moment';
-import { ToastrService } from 'ngx-toastr';
 import { map } from 'rxjs';
 import { BaseButtonComponent } from '../../components/base-button/base-button.component';
 import { BaseDatepickerComponent } from '../../components/base-datepicker/base-datepicker.component';
@@ -20,8 +19,8 @@ import { MonthYearDatepickerComponent } from '../../components/month-year-datepi
 import { Keyvalue } from '../../models/keyvalue';
 import { Paciente } from '../../models/paciente';
 import { ConveniosService } from '../../services/convenios.service';
-import { PacientesService } from '../../services/pacientes.service';
 import { NotificationService } from '../../services/notification.service';
+import { PacientesService } from '../../services/pacientes.service';
 
 @Component({
   selector: 'app-cadastro-paciente',
@@ -35,6 +34,7 @@ import { NotificationService } from '../../services/notification.service';
     MonthYearDatepickerComponent,
     RouterLink,
     AsyncPipe,
+    JsonPipe,
   ],
   templateUrl: './cadastro-paciente.component.html',
   styleUrl: './cadastro-paciente.component.scss',
@@ -102,26 +102,27 @@ export class CadastroPacienteComponent implements OnInit {
 
   ngOnInit(): void {
     this.cadastroForm = this.fb.group({
-      nome: ['123123', Validators.required],
-      sobrenome: ['123123', Validators.required],
+      nome: ['', Validators.required],
+      sobrenome: ['', Validators.required],
       dataNascimento: new FormControl<Date | null>(
         new Date(),
         Validators.required
       ),
       genero: new FormControl<number | null>(1, Validators.required),
-      cpf: ['123123'],
-      rg: ['123123'],
-      UFRG: [''],
-      email: ['', Validators.email],
-      celular: ['123123'],
-      telefoneFixo: ['123123'],
-      convenioId: [''],
-      numeroCarteirinhaConvenio: ['123123'],
-      validadeCarteirinha: [moment()],
+      cpf: [''],
+      rg: ['', Validators.required],
+      UFRG: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      celular: ['', Validators.required],
+      telefoneFixo: ['', Validators.required],
+      convenioId: ['', Validators.required],
+      numeroCarteirinhaConvenio: ['', Validators.required],
+      validadeCarteirinha: [moment(), Validators.required],
     });
   }
 
   onSubmit() {
+    if (!this.cadastroForm.valid) return;
     const values = this.cadastroForm.getRawValue() as Paciente;
     this.pacientesService.create(values).subscribe({
       next: () => {
