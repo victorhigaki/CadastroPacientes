@@ -20,7 +20,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NgxMaskDirective } from 'ngx-mask';
 import { map } from 'rxjs';
 import { BaseButtonComponent } from '../../components/base-button/base-button.component';
@@ -33,7 +33,6 @@ import { NotificationService } from '../../services/notification.service';
 import { PacientesService } from '../../services/pacientes.service';
 import moment from 'moment';
 import { MonthYearDatepickerComponent } from '../../components/month-year-datepicker/month-year-datepicker.component';
-import { BaseInputComponent } from '../../components/base-input/base-input.component';
 
 @Component({
   selector: 'app-cadastro-paciente',
@@ -59,16 +58,18 @@ import { BaseInputComponent } from '../../components/base-input/base-input.compo
     MatDatepickerModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './editar-paciente.component.html',
-  styleUrl: './editar-paciente.component.scss',
+  templateUrl: './paciente-form.component.html',
+  styleUrl: './paciente-form.component.scss',
   providers: [ConveniosService, PacientesService, provideNativeDateAdapter()],
+  standalone: true,
 })
-export class EditarPacienteComponent implements OnInit {
-  editarForm!: FormGroup;
+export class PacienteFormComponent implements OnInit {
+  pacienteForm!: FormGroup;
   private fb = inject(FormBuilder);
   private convenioService = inject(ConveniosService);
   private pacientesService = inject(PacientesService);
   private notificationService = inject(NotificationService);
+  private router = inject(Router);
   private route = inject(ActivatedRoute);
   pacienteId = this.route.snapshot.paramMap.get('id') || '';
   generos = [
@@ -125,9 +126,10 @@ export class EditarPacienteComponent implements OnInit {
     { key: 'DF', value: 'DF' },
   ];
   paciente!: Paciente;
+  dataMaximaHoje = new Date();
 
   ngOnInit(): void {
-    this.editarForm = this.fb.group({
+    this.pacienteForm = this.fb.group({
       id: [''],
       nome: ['', Validators.required],
       sobrenome: ['', Validators.required],
@@ -147,28 +149,99 @@ export class EditarPacienteComponent implements OnInit {
       validadeCarteirinha: [moment(), Validators.required],
     });
 
-    this.getPaciente();
+    if (this.pacienteId) this.getPaciente();
   }
 
   private getPaciente() {
     this.pacientesService.getById(this.pacienteId).subscribe({
       next: (res) => {
-        this.editarForm.patchValue({ ...res });
+        this.pacienteForm.patchValue({ ...res });
       },
     });
   }
 
   onSubmit() {
-    const values = this.editarForm.getRawValue() as Paciente;
-    this.pacientesService.update(this.pacienteId, values).subscribe({
+    if (!this.pacienteForm.valid) {
+      this.validar();
+      return;
+    }
+    this.pacienteId ? this.editar() : this.criar();
+  }
+
+  private criar() {
+    const paciente = Object.assign({}, this.pacienteForm.getRawValue());
+    if (paciente.hasOwnProperty('id')) delete paciente.id;
+    this.pacientesService.create(paciente).subscribe({
       next: () => {
         this.notificationService.success('Paciente Cadastrado com sucesso!');
+        this.router.navigate(['/']);
       },
       error: (err) => {
+        console.error(err.error);
         this.notificationService.error(
-          'Ocorreu um erro ao Cadastrar Paciente!'
+          err.error ?? 'Ocorreu um erro ao Cadastrar Paciente!'
         );
       },
     });
+  }
+
+  private editar() {
+    const paciente = Object.assign({}, this.pacienteForm.getRawValue());
+    this.pacientesService.update(this.pacienteId, paciente).subscribe({
+      next: () => {
+        this.notificationService.success('Paciente Editado com sucesso!');
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        this.notificationService.error(
+          err.error ?? 'Ocorreu um erro ao Cadastrar Paciente!'
+        );
+      },
+    });
+  }
+
+  validar() {
+    const errors = [];
+    if (this.pacienteForm.get('nome')?.hasError('required')) {
+      errors.push('Nome');
+    }
+    if (this.pacienteForm.get('sobrenome')?.hasError('required')) {
+      errors.push('Sobrenome');
+    }
+    if (this.pacienteForm.get('dataNascimento')?.hasError('required')) {
+      errors.push('DataNascimento');
+    }
+    if (this.pacienteForm.get('genero')?.hasError('required')) {
+      errors.push('Genero');
+    }
+    if (this.pacienteForm.get('rg')?.hasError('required')) {
+      errors.push('RG');
+    }
+    if (this.pacienteForm.get('ufrg')?.hasError('required')) {
+      errors.push('UF do RG');
+    }
+    if (this.pacienteForm.get('email')?.hasError('required')) {
+      errors.push('Email');
+    }
+    if (this.pacienteForm.get('celular')?.hasError('required')) {
+      errors.push('Celular');
+    }
+    if (this.pacienteForm.get('telefoneFixo')?.hasError('required')) {
+      errors.push('Telefone Fixo');
+    }
+    if (this.pacienteForm.get('convenioId')?.hasError('required')) {
+      errors.push('Convênio');
+    }
+    if (
+      this.pacienteForm.get('numeroCarteirinhaConvenio')?.hasError('required')
+    )
+      errors.push('Carteirinha do Convenio');
+    {
+    }
+    if (this.pacienteForm.get('validadeCarteirinha')?.hasError('required')) {
+      errors.push('Validade Carteirinha');
+    }
+
+    this.notificationService.alert('Completar os campos: ' + errors.join(", "))
   }
 }

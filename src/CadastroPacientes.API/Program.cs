@@ -1,12 +1,13 @@
 using CadastroPacientes.API.Configurations;
 using CadastroPacientes.CrossCutting;
 using CadastroPacientes.Data.Context;
+using CadastroPacientes.Domain.Configurations;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.Configure<ConnectionStrings>(builder.Configuration.GetSection("ConnectionStrings"));
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>

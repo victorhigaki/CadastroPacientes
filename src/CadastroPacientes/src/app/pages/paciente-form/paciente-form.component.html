@@ -1,7 +1,7 @@
 <div class="mt">
   <mat-card appearance="outlined">
     <div class="card">
-      <form [formGroup]="editarForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="pacienteForm" (ngSubmit)="onSubmit()">
         <mat-card-header>
           <mat-card-title>Cadastro</mat-card-title>
         </mat-card-header>
@@ -12,17 +12,28 @@
               <mat-form-field appearance="fill">
                 <mat-label>Nome</mat-label>
                 <input matInput formControlName="nome" />
+                <mat-hint style="color: red">
+                  {{
+                    pacienteForm.get("nome")?.touched &&
+                    pacienteForm.get("nome")?.hasError("required")
+                      ? "Nome obrigatório"
+                      : ""
+                  }}
+                </mat-hint>
               </mat-form-field>
-
-              <!-- <app-base-input
-                formControlName="nome"
-                label="Nome"
-              ></app-base-input> -->
             </div>
 
             <mat-form-field appearance="fill">
               <mat-label>Sobrenome</mat-label>
               <input matInput formControlName="sobrenome" />
+              <mat-hint style="color: red">
+                {{
+                  pacienteForm.get("sobrenome")?.touched &&
+                  pacienteForm.get("sobrenome")?.hasError("required")
+                    ? "Sobrenome obrigatório"
+                    : ""
+                }}
+              </mat-hint>
             </mat-form-field>
 
             <div>
@@ -32,13 +43,22 @@
                   matInput
                   [matDatepicker]="picker"
                   formControlName="dataNascimento"
+                  [max]="dataMaximaHoje"
                 />
-                <mat-hint>MM/DD/YYYY</mat-hint>
                 <mat-datepicker-toggle
                   matIconSuffix
                   [for]="picker"
                 ></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
+
+                <mat-hint style="color: red">
+                  {{
+                    pacienteForm.get("dataNascimento")?.touched &&
+                    pacienteForm.get("dataNascimento")?.hasError("required")
+                      ? "Data Nascimento obrigatório"
+                      : ""
+                  }}
+                </mat-hint>
               </mat-form-field>
             </div>
 
@@ -65,6 +85,12 @@
               <mat-form-field appearance="fill">
                 <mat-label>RG</mat-label>
                 <input matInput formControlName="rg" [mask]="'00.000.000-0'" />
+
+                <mat-hint style="color: red">
+                  @if( pacienteForm.get("rg")?.touched &&
+                  pacienteForm.get("rg")?.hasError("required")) { RG obrigatório
+                  }
+                </mat-hint>
               </mat-form-field>
             </div>
 
@@ -79,7 +105,19 @@
             <div>
               <mat-form-field appearance="fill">
                 <mat-label>Email</mat-label>
-                <input matInput formControlName="email" mask="A*@A*.SSS" />
+                <input
+                  matInput
+                  formControlName="email"
+                  mask="A*@A*.SSS"
+                  [dropSpecialCharacters]="false"
+                />
+                <mat-hint style="color: red">
+                  @if( pacienteForm.get("email")?.touched &&
+                  pacienteForm.get("email")?.hasError("required")) { Email
+                  obrigatório } @if( pacienteForm.get("email")?.touched &&
+                  pacienteForm.get("email")?.hasError("email")) { Email Inválido
+                  }
+                </mat-hint>
               </mat-form-field>
             </div>
 
@@ -91,6 +129,14 @@
                   formControlName="celular"
                   mask="(00) 00000-0000"
                 />
+                <div style="color: red">
+                  {{
+                    pacienteForm.get("celular")?.touched &&
+                    pacienteForm.get("celular")?.hasError("required")
+                      ? "celular obrigatório"
+                      : ""
+                  }}
+                </div>
               </mat-form-field>
             </div>
 
@@ -102,6 +148,14 @@
                   formControlName="telefoneFixo"
                   mask="(00) 0000-0000"
                 />
+                <div style="color: red">
+                  {{
+                    pacienteForm.get("telefoneFixo")?.touched &&
+                    pacienteForm.get("telefoneFixo")?.hasError("required")
+                      ? "Telefone Fixo obrigatório"
+                      : ""
+                  }}
+                </div>
               </mat-form-field>
             </div>
 
@@ -117,6 +171,17 @@
               <mat-form-field appearance="fill">
                 <mat-label>Número da carteirinha do convênio</mat-label>
                 <input matInput formControlName="numeroCarteirinhaConvenio" />
+
+                <div style="color: red">
+                  {{
+                    pacienteForm.get("numeroCarteirinhaConvenio")?.touched &&
+                    pacienteForm
+                      .get("numeroCarteirinhaConvenio")
+                      ?.hasError("required")
+                      ? "Número da carteirinha do convênio obrigatório"
+                      : ""
+                  }}
+                </div>
               </mat-form-field>
             </div>
 

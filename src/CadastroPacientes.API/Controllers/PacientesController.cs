@@ -32,8 +32,15 @@ public class PacientesController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create(PacienteDto pacienteDto)
     {
-        var result = await _pacienteService.Create(pacienteDto);
-        return CreatedAtAction(nameof(GetById),new { id = result.Id }, pacienteDto);
+        try
+        {
+            var result = await _pacienteService.Create(pacienteDto);
+            return CreatedAtAction(nameof(GetById), new { id = result.Id }, pacienteDto);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpPut("{id:guid}")]
@@ -47,7 +54,7 @@ public class PacientesController : ControllerBase
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteLogical(Guid id)
     {
-        await _pacienteService.DeleteLogical(id);
+        await _pacienteService.LogicalDelete(id);
         return NoContent();
     }
 }

@@ -29,6 +29,12 @@ public class PacienteService : IPacienteService
 
     public async Task<PacienteDto> Create(PacienteDto pacienteDto)
     {
+        if (!string.IsNullOrEmpty(pacienteDto.CPF)) {
+            if (pacienteDto.CPF.Length != 11 || !pacienteDto.CPF.IsValid())
+                throw new Exception("CPF inválido");
+            var pacienteComCpf = await _pacienteRepository.GetByCpf(pacienteDto.CPF);
+            if (pacienteComCpf != null) throw new Exception("CPF já utilizado!!");
+        }
         var paciente = pacienteDto.ToEntity();
         await _pacienteRepository.Create(paciente);
         return pacienteDto;
@@ -40,8 +46,8 @@ public class PacienteService : IPacienteService
         await _pacienteRepository.Update(paciente);
     }
 
-    public async Task DeleteLogical(Guid id)
+    public async Task LogicalDelete(Guid id)
     {
-        await _pacienteRepository.DeleteLogical(id);
+        await _pacienteRepository.LogicalDelete(id);
     }
 }

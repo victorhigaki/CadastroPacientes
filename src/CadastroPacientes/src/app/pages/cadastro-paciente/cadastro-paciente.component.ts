@@ -28,7 +28,6 @@ import { Paciente } from '../../models/paciente';
 import { ConveniosService } from '../../services/convenios.service';
 import { NotificationService } from '../../services/notification.service';
 import { PacientesService } from '../../services/pacientes.service';
-import { provideNgxMask } from 'ngx-mask';
 
 @Component({
   selector: 'app-cadastro-paciente',
@@ -132,15 +131,19 @@ export class CadastroPacienteComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.cadastroForm.valid) return;
+    if (!this.cadastroForm.valid) {
+      this.notificationService.error('Corrigir os erros dos campos!')
+      return;
+    }
     const values = this.cadastroForm.getRawValue() as Paciente;
     this.pacientesService.create(values).subscribe({
       next: () => {
         this.notificationService.success('Paciente Cadastrado com sucesso!');
       },
       error: (err) => {
+        console.error(err.error);
         this.notificationService.error(
-          'Ocorreu um erro ao Cadastrar Paciente!'
+          err.error ?? 'Ocorreu um erro ao Cadastrar Paciente!'
         );
       },
     });

@@ -18,7 +18,7 @@ public class Paciente
 
     public Guid ConvenioId { get; set; }
     public virtual Convenio Convenio { get; set; }
-    public int NumeroCarteirinhaConvenio { get; set; }
+    public string NumeroCarteirinhaConvenio { get; set; }
     public DateTime ValidadeCarteirinha { get; set; }
 
     public Status Status { get; set; } = Status.Ativo;

@@ -12,11 +12,7 @@ public static class AddMigrationConfiguration
         using var scope = app.Services.CreateScope().ServiceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope();
         var env = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
         var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
-        if (env.IsDevelopment())
-        {
-            await context.Database.MigrateAsync();
-        }
+        await context.Database.MigrateAsync();
         await SeedConvenios(context);
     }
 

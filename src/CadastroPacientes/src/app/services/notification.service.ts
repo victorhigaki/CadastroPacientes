@@ -11,6 +11,10 @@ export class NotificationService {
     this.toastrService.success(message ?? 'Relizada com sucesso!', 'Sucesso!');
   }
 
+  alert(message: string) {
+    this.toastrService.warning(message ?? 'Verifique novamente!', 'Atenção!');
+  }
+
   error(message: string) {
     this.toastrService.error(message ?? 'Ocorreu um erro!', 'Opa!');
   }
