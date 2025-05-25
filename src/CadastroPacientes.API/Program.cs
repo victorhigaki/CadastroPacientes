@@ -16,7 +16,7 @@ builder.Services.AddControllers()
 
 builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseSqlServer(
-           "Server=(localdb)\\mssqllocaldb;Database=CadastroPacientes;Integrated Security=True;"));
+           builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -27,8 +27,8 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("Development", builder =>
         builder.AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyHeader()
     );
 });
 
@@ -38,8 +38,9 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.UseCors("Development");
 }
+
+app.UseCors("Development");
 
 app.UseHttpsRedirection();
 

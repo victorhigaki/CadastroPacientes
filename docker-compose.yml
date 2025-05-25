@@ -1,0 +1,42 @@
+services:
+  cadastropacientes.api:
+    image: ${DOCKER_REGISTRY-}cadastropacientesapi
+    build:
+      context: .
+      dockerfile: src/CadastroPacientes.API/Dockerfile
+    ports:
+      - "5000:8080"
+      - "5001:8081"
+    depends_on:
+      - sqlserver
+    networks:
+      - cadastro-paciente-network
+  
+  sqlserver:
+    hostname: sqlserver
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=YourStrong@Passw0rd
+    ports:
+        - "1433:1433"
+    networks:
+      - cadastro-paciente-network
+  
+  angular-docker:
+    image: ${DOCKER_REGISTRY-}angular-docker
+    build:
+      context: src/CadastroPacientes
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"
+    environment:
+      - ApiUrl=https://localhost:5001
+    depends_on:
+      - cadastropacientes.api
+    networks:
+      - cadastro-paciente-network
+
+networks:
+  cadastro-paciente-network:
+    driver: bridge

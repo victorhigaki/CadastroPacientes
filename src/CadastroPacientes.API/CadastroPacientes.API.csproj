@@ -6,6 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>2b761761-b7ac-4dea-a2f7-1013c1d9d085</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
+    <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,7 +23,6 @@
   <ItemGroup>
     <ProjectReference Include="..\CadastroPacientes.Application\CadastroPacientes.Application.csproj" />
     <ProjectReference Include="..\CadastroPacientes.CrossCutting\CadastroPacientes.CrossCutting.csproj" />
-    <ProjectReference Include="..\CadastroPacientes.Data\CadastroPacientes.Data.csproj" />
   </ItemGroup>
 
 </Project>

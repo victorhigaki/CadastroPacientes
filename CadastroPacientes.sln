@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadastroPacientes.Data", "src\CadastroPacientes.Data\CadastroPacientes.Data.csproj", "{08C0AD85-0248-465A-A446-CFBD147AD2C4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadastroPacientes.Domain", "src\CadastroPacientes.Domain\CadastroPacientes.Domain.csproj", "{E5706C0F-732F-44AC-B4FB-4D2D9A7ADB59}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadastroPacientes.CrossCutting", "src\CadastroPacientes.CrossCutting\CadastroPacientes.CrossCutting.csproj", "{30584F02-29DC-4B2D-9141-79E5772A527F}"
@@ -13,16 +11,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadastroPacientes.API", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadastroPacientes.Application", "src\CadastroPacientes.Application\CadastroPacientes.Application.csproj", "{0E174454-1E58-23D6-7C89-BFED4CB79627}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadastroPacientes.Data", "src\CadastroPacientes.Data\CadastroPacientes.Data.csproj", "{6DB332CC-5848-4731-9767-394CEFD84DEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{08C0AD85-0248-465A-A446-CFBD147AD2C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{08C0AD85-0248-465A-A446-CFBD147AD2C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{08C0AD85-0248-465A-A446-CFBD147AD2C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{08C0AD85-0248-465A-A446-CFBD147AD2C4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E5706C0F-732F-44AC-B4FB-4D2D9A7ADB59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E5706C0F-732F-44AC-B4FB-4D2D9A7ADB59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5706C0F-732F-44AC-B4FB-4D2D9A7ADB59}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +37,14 @@ Global
 		{0E174454-1E58-23D6-7C89-BFED4CB79627}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E174454-1E58-23D6-7C89-BFED4CB79627}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E174454-1E58-23D6-7C89-BFED4CB79627}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DB332CC-5848-4731-9767-394CEFD84DEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DB332CC-5848-4731-9767-394CEFD84DEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DB332CC-5848-4731-9767-394CEFD84DEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DB332CC-5848-4731-9767-394CEFD84DEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
