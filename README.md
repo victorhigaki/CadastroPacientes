@@ -55,7 +55,7 @@ sometimes docker compose dont expose API ports, so it's needed to `Run Service` 
     dotnet run
 ```
 
-#### backend on CadastroPacientes folder
+#### frontend on CadastroPacientes folder
 ```console
     npm install -g @angular/cli
     ng serve
